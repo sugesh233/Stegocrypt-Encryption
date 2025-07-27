@@ -85,13 +85,13 @@ Visit the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ## 📄 License
 
-MIT License. See [LICENSE](LICENSE) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🌐 Author
+## ✨ Author
 
-**Sugesh**
-GitHub: [https://github.com/sugesh233](https://github.com/sugesh233)
+* **Sugesh**
+  [GitHub Profile »](https://github.com/sugesh233)
 
 ---
