@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Extract Message{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-success">
+                <h2 class="text-center mb-0"><i class="fas fa-unlock me-2"></i>Extract Hidden Message</h2>
+            </div>
+            <div class="card-body">
+                {% if decrypted_text %}
+                    <div class="card bg-dark mb-4">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <label class="form-label text-white">Decrypted message:</label>
+                                <div class="border rounded p-3 bg-light text-dark">
+                                    <pre class="mb-0" style="white-space: pre-wrap;">{{ decrypted_text }}</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button class="btn btn-outline-light" id="copyBtn" onclick="copyToClipboard()">
+                                    <i class="fas fa-copy me-2"></i>Copy to Clipboard
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="{{ url_for('decrypt') }}" class="btn btn-primary">
+                            <i class="fas fa-redo me-2"></i>Decrypt Another Image
+                        </a>
+                    </div>
+                {% else %}
+                    <form method="POST" enctype="multipart/form-data" id="decryptForm">
+                        <div class="mb-4">
+                            <label for="image" class="form-label">Select image with hidden message:</label>
+                            <input class="form-control" type="file" id="image" name="image" accept=".jpg,.jpeg,.png" required>
+                        </div>
+                        
+                        <div class="mb-4" id="imagePreviewContainer" style="display: none;">
+                            <label class="form-label">Image preview:</label>
+                            <div class="text-center">
+                                <img id="imagePreview" class="img-fluid img-thumbnail" style="max-height: 300px;" />
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="use_custom_keys" name="use_custom_keys">
+                                <label class="form-check-label" for="use_custom_keys">Use custom decryption keys</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4" id="keyfileContainer" style="display: none;">
+                            <label for="keyfile" class="form-label">Select key file:</label>
+                            <input class="form-control" type="file" id="keyfile" name="keyfile" accept=".json">
+                            <input type="hidden" name="decryption_method" value="custom" id="decryption_method_custom">
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg" id="decryptBtn">
+                                <i class="fas fa-unlock-alt me-2"></i>Extract Message
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if not decrypted_text %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Custom key toggle
+        const useCustomKeysCheckbox = document.getElementById('use_custom_keys');
+        const keyfileContainer = document.getElementById('keyfileContainer');
+        const keyfileInput = document.getElementById('keyfile');
+        const decryptionMethodCustom = document.getElementById('decryption_method_custom');
+        
+        if (useCustomKeysCheckbox) {
+            useCustomKeysCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    keyfileContainer.style.display = 'block';
+                    keyfileInput.required = true;
+                    decryptionMethodCustom.value = 'custom';
+                } else {
+                    keyfileContainer.style.display = 'none';
+                    keyfileInput.required = false;
+                    decryptionMethodCustom.value = 'default';
+                }
+            });
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}

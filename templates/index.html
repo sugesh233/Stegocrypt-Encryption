@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-dark">
+                <h1 class="text-center mb-0 text-white">
+                    <i class="fas fa-eye-slash me-2"></i>StegoCrypt
+                </h1>
+            </div>
+            <div class="card-body">                
+                <div class="row mb-4 mt-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="fas fa-lock me-2"></i>Hide Text in Image</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center mt-4">
+                                    <a href="{{ url_for('encrypt') }}" class="btn btn-primary"><i class="fas fa-pencil-alt me-2"></i>Encrypt Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <h4 class="mb-0"><i class="fas fa-unlock me-2"></i>Reveal Hidden Text</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center mt-4">
+                                    <a href="{{ url_for('decrypt') }}" class="btn btn-success"><i class="fas fa-eye me-2"></i>Decrypt Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
